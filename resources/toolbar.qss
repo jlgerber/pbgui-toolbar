@@ -3,6 +3,7 @@
     margin: 0px;
     border: 1px solid rgb(120,120,120);
     border-right: none;
+    background: rgb(60,60,60);
 }
 
 QPushButton#QueryButton {
@@ -21,20 +22,9 @@ QPushButton#QueryButton::hover {
 
 QPushButton#QueryButton:pressed {
     image: url(:/images/magnify.png);
-    border-radius: 3px; /*11px */
+    border-radius: 3px;
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
     stop: 0 #006DCC, stop: .6 #006DCC,stop: 1.0 #0033BF);
-}
-
-QLineEdit {
-    border-radius: 10px;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    border: 1px solid rgb(80,80,80);
-    margin-left:10px;
-    margin-right:10px;
 }
 
 QFrame > QLabel {
@@ -141,6 +131,17 @@ QPushButton#SiteIcon {
 }
 
 QFrame#PackageLineEditFrame {
-    /* padding: 4px; */
     border: 1px solid rgb(120,120,120);
+    background: rgb(60,60,60);
+}
+
+QLineEdit {
+    border-radius: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border: 1px solid rgb(80,80,80);
+    margin-left:10px;
+    margin-right:10px;
 }

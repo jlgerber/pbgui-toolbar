@@ -27,11 +27,11 @@ QPushButton#QueryButton:pressed {
 }
 
 QLineEdit {
-    border-radius: 14px;
+    border-radius: 10px;
     padding-left: 8px;
     padding-right: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     border: 1px solid rgb(80,80,80);
     margin-left:10px;
     margin-right:10px;
@@ -140,3 +140,7 @@ QPushButton#SiteIcon {
     margin-right:5px;
 }
 
+QFrame#PackageLineEditFrame {
+    /* padding: 4px; */
+    border: 1px solid rgb(120,120,120);
+}

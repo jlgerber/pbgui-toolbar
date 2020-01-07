@@ -5,7 +5,7 @@ use qt_widgets::{
     QAction, QComboBox, QFrame, QLineEdit, QMainWindow, QMenu, QPushButton, QToolBar,
 };
 
-use rustqt_utils::{create_hlayout, qs};
+use rustqt_utils::{create_hlayout, qs, set_stylesheet_from_str};
 
 /// The main toolbar structure
 pub struct MainToolbar {
@@ -20,6 +20,9 @@ pub struct MainToolbar {
     pub menu: CppBox<QMenu>,
     pub clear_line_edit_action: MutPtr<QAction>,
 }
+
+/// load style at compile time
+const STYLE_STR: &'static str = include_str!("../resources/toolbar.qss");
 
 /// Create the MainToolbar structure
 pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
@@ -156,5 +159,10 @@ impl MainToolbar {
     /// Retrieve a query button
     pub fn query_btn(&mut self) -> MutPtr<QPushButton> {
         self.query_btn
+    }
+
+    /// Set the stylesheet to the internal stylesheet
+    pub fn set_default_stylesheet(&mut self) {
+        set_stylesheet_from_str(STYLE_STR, self.toolbar);
     }
 }

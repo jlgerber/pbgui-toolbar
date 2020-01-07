@@ -25,7 +25,6 @@ fn main() {
         let _main_widget_ptr = main_widget.as_mut_ptr();
 
         // main_layout
-
         let mut main_layout = create_vlayout();
         let _main_layout_ptr = main_layout.as_mut_ptr();
         main_widget.set_layout(main_layout.into_ptr());
@@ -33,10 +32,11 @@ fn main() {
         // set main_widget as the central widget in main_window
         main_window.set_central_widget(main_widget.into_ptr());
         let mut tb = toolbar::create(&mut main_window.as_mut_ptr());
-        load_stylesheet(
-            "/Users/jgerber/src/rust/pbgui-toolbar/resources/toolbar.qss",
-            main_window.as_mut_ptr(),
-        );
+        // load_stylesheet(
+        //     "/Users/jgerber/src/rust/pbgui-toolbar/resources/toolbar.qss",
+        //     main_window.as_mut_ptr(),
+        // );
+        tb.set_default_stylesheet();
         let client = ClientProxy::connect().expect("Unable to connect via ClientProxy");
         let mut db = PackratDb::new(client);
 

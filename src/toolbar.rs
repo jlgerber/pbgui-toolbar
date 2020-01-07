@@ -7,6 +7,7 @@ use qt_widgets::{
 
 use rustqt_utils::{create_hlayout, qs};
 
+/// The main toolbar structure
 pub struct MainToolbar {
     pub toolbar: MutPtr<QToolBar>,
     pub query_btn: MutPtr<QPushButton>,
@@ -57,8 +58,8 @@ pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
 impl MainToolbar {
     /// Get a mutable reference to the mutable pointer to the level
     /// combobox.
-    pub fn level(&mut self) -> &mut MutPtr<QComboBox> {
-        &mut self.level
+    pub fn level(&mut self) -> MutPtr<QComboBox> {
+        self.level
     }
 
     /// set the levels to choose from in the combobox's dropdown list
@@ -74,10 +75,18 @@ impl MainToolbar {
         }
     }
 
+    /// add a level to choose from in the combobox's dropdown list
+    pub fn add_level_item<I: AsRef<str>>(&mut self, input: I) {
+        unsafe {
+            self.level
+                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+        }
+    }
+
     /// Get a mutable reference to the mutable pointer to the role
     /// combobox.
-    pub fn role(&mut self) -> &mut MutPtr<QComboBox> {
-        &mut self.role
+    pub fn role(&mut self) -> MutPtr<QComboBox> {
+        self.role
     }
 
     /// Set role items in the combobox dropdown list
@@ -90,10 +99,18 @@ impl MainToolbar {
         }
     }
 
+    /// add a role to choose from in the combobox's dropdown list
+    pub fn add_role_item<I: AsRef<str>>(&mut self, input: I) {
+        unsafe {
+            self.role
+                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+        }
+    }
+
     /// Get a mutable reference to the mutable pointer to the platform
     /// combobox.
-    pub fn platform(&mut self) -> &mut MutPtr<QComboBox> {
-        &mut self.platform
+    pub fn platform(&mut self) -> MutPtr<QComboBox> {
+        self.platform
     }
 
     /// Set the platforms to choose from in the combobox's dropdown list
@@ -108,8 +125,8 @@ impl MainToolbar {
 
     /// Get a mutable reference to the mutable pointer to the site
     /// combobox.
-    pub fn site(&mut self) -> &mut MutPtr<QComboBox> {
-        &mut self.site
+    pub fn site(&mut self) -> MutPtr<QComboBox> {
+        self.site
     }
 
     /// Set the sites to choose from in the combobox's dropdown list.
@@ -122,9 +139,22 @@ impl MainToolbar {
         }
     }
 
+    /// add a site to choose from in the combobox's dropdown list
+    pub fn add_site_item<I: AsRef<str>>(&mut self, input: I) {
+        unsafe {
+            self.site
+                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+        }
+    }
+
     /// Get a mutable reference to the mutable pointer to the dir
     /// combobox.
-    pub fn dir(&mut self) -> &mut MutPtr<QComboBox> {
-        &mut self.dir
+    pub fn dir(&mut self) -> MutPtr<QComboBox> {
+        self.dir
+    }
+
+    /// Retrieve a query button
+    pub fn query_btn(&mut self) -> MutPtr<QPushButton> {
+        self.query_btn
     }
 }

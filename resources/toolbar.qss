@@ -5,7 +5,6 @@
     border-right: none;
 }
 
-
 QPushButton#QueryButton {
     padding: 2px;
     margin-right: 8px;
@@ -22,7 +21,7 @@ QPushButton#QueryButton::hover {
 
 QPushButton#QueryButton:pressed {
     image: url(:/images/magnify.png);
-    border-radius: 11px;
+    border-radius: 3px; /*11px */
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
     stop: 0 #006DCC, stop: .6 #006DCC,stop: 1.0 #0033BF);
 }
@@ -61,13 +60,33 @@ QFrame > QLabel {
     background: rgb(60,60,60);
 }
 
-QComboBox#TopCB {
+QComboBox#RoleCB, 
+QComboBox#LevelCB, 
+QComboBox#PlatformCB, 
+QComboBox#SiteCB, 
+QComboBox#DirCB {
     border: none; 
-    min-width: 4em;
     background: rgb(60,60,60);
 }
 
-QComboBox:on { /* shift the text when the popup opens */
+QComboBox#PlatformCB, 
+QComboBox#SiteCB {
+    min-width: 7em;
+}
+
+QComboBox#RoleCB {
+    min-width: 9em;
+}
+
+QComboBox#LevelCB {
+    min-width:6em;
+}
+
+QComboBox#DirCB {
+   min-width: 7em; 
+}
+
+QComboBox:on { 
     padding-top: 3px;
     padding-left: 4px;
 }
@@ -80,17 +99,22 @@ QComboBox::drop-down {
     border-bottom-right-radius: 3px;
 }
 
-QComboBox#TopCB::down-arrow {
+QComboBox#RoleCB::down-arrow,
+QComboBox#LevelCB::down-arrow,
+QComboBox#PlatformCB::down-arrow,
+QComboBox#SiteCB::down-arrow,
+QComboBox#DirCB::down-arrow 
+{
     color: darkgray;
     image: url(:/images/dropdown.png);
     width: 10px;
     height: 10px;
     left: 4px;
 }
-/* 
-QComboBox#TopCB::down-arrow {
- left: 4px;
-} */
+
+QComboBox QAbstractItemView {
+    min-width: 8em;
+}
 
 QPushButton#LevelIcon {
     background: transparent;
@@ -114,9 +138,5 @@ QPushButton#SiteIcon {
     background: transparent;
     image: url(:images/earth.png);
     margin-right:5px;
-}
-
-QToolBar#WithsToolBar {
-    border: none;
 }
 

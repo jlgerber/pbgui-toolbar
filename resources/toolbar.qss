@@ -50,12 +50,20 @@ QFrame > QLabel {
     background: rgb(60,60,60);
 }
 
+#FirstComboFrame > QLabel, #ComboFrame > QLabel {
+    /*temp while figuring out the centering issue */
+    margin-top: 3px;
+}
 QComboBox#RoleCB, 
 QComboBox#LevelCB, 
 QComboBox#PlatformCB, 
 QComboBox#SiteCB, 
 QComboBox#DirCB {
     border: none; 
+    /* height: 20px; */
+/* temp */
+    margin-top:3px;
+
     background: rgb(60,60,60);
 }
 

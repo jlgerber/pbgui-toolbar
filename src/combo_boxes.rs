@@ -1,6 +1,6 @@
+use qt_core::{AlignmentFlag, QFlags, QString};
 use qt_widgets::{
     cpp_core::{MutPtr, StaticUpcast},
-    qt_core::QString,
     QComboBox, QFrame, QLabel, QLayout, QPushButton,
 };
 use rustqt_utils::{create_hlayout, qs};
@@ -57,10 +57,14 @@ unsafe fn setup_levels_cb<'b>(layout: &mut MutPtr<QLayout>) -> MutPtr<QComboBox>
     pxlabel.set_object_name(&qs("LevelIcon"));
     let label = QLabel::from_q_string(&qs("Level"));
     let mut hlayout = create_hlayout();
+    //let hlayout_ptr = hlayout.as_mut_ptr();
     hlayout.add_widget(pxlabel.into_ptr());
     hlayout.add_widget(label.into_ptr());
     // assign owner of level
+    // let align: QFlags<AlignmentFlag> = AlignmentFlag::AlignBottom.into();
     hlayout.add_widget(level_combobox.into_ptr());
+    // hlayout.set_alignment_q_layout_q_flags_alignment_flag(hlayout_ptr, align);
+    //hlayout.set_alignment_q_widget_q_flags_alignment_flag(level_cb_ptr, align);
     grpbox.set_layout(hlayout.into_ptr());
     layout.add_widget(grpbox.into_ptr());
     level_cb_ptr

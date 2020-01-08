@@ -3,7 +3,7 @@ use packybara::packrat::{Client, NoTls};
 use pbgui_toolbar::toolbar;
 use qt_core::QResource;
 use qt_widgets::{QApplication, QMainWindow, QWidget};
-use rustqt_utils::{create_vlayout, load_stylesheet, qs};
+use rustqt_utils::{create_vlayout, qs};
 
 pub struct ClientProxy {}
 
@@ -32,10 +32,6 @@ fn main() {
         // set main_widget as the central widget in main_window
         main_window.set_central_widget(main_widget.into_ptr());
         let mut tb = toolbar::create(&mut main_window.as_mut_ptr());
-        // load_stylesheet(
-        //     "/Users/jgerber/src/rust/pbgui-toolbar/resources/toolbar.qss",
-        //     main_window.as_mut_ptr(),
-        // );
         tb.set_default_stylesheet();
         let client = ClientProxy::connect().expect("Unable to connect via ClientProxy");
         let mut db = PackratDb::new(client);

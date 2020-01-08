@@ -1,5 +1,5 @@
 use crate::{combo_boxes, line_edit, query_button};
-use qt_core::QString;
+use qt_core::{AlignmentFlag, QFlags, QString};
 use qt_widgets::{
     cpp_core::{CppBox, MutPtr},
     QAction, QComboBox, QFrame, QLineEdit, QMainWindow, QMenu, QPushButton, QToolBar,
@@ -31,12 +31,15 @@ pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
         top_toolbar.set_floatable(false);
         top_toolbar.set_movable(false);
         let mut hlayout = create_hlayout();
-
+        let mut hlayout_ptr = hlayout.as_mut_ptr();
         let query_btn = query_button::create("", hlayout.as_mut_ptr());
 
-        let (level, role, platform, site, dir) = combo_boxes::create(&mut hlayout.as_mut_ptr());
+        let (level, role, platform, site, dir) = combo_boxes::create(&mut hlayout_ptr);
 
         let (line_edit, menu, clear_line_edit_action) = line_edit::create(hlayout.as_mut_ptr());
+        let _align: QFlags<AlignmentFlag> = AlignmentFlag::AlignCenter.into();
+        // hlayout.set_alignment_q_layout_q_flags_alignment_flag(hlayout_ptr, align);
+        // hlayout.set_alignment_q_widget_q_flags_alignment_flag(level, align);
 
         let mut toolbar_frame = QFrame::new_0a();
         toolbar_frame.set_object_name(&qs("ToobarFrame"));

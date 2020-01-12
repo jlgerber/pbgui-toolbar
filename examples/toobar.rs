@@ -1,3 +1,4 @@
+use packybara::db::traits::PBFind;
 use packybara::packrat::PackratDb;
 use packybara::packrat::{Client, NoTls};
 use pbgui_toolbar::toolbar;

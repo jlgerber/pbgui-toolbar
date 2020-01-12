@@ -1,3 +1,4 @@
+use packybara::db::traits::PBFind;
 use qt_core::{AlignmentFlag, QFlags, QString};
 use qt_widgets::{
     cpp_core::{MutPtr, StaticUpcast},

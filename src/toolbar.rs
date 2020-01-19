@@ -32,7 +32,7 @@ pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
         top_toolbar.set_movable(false);
         let mut hlayout = create_hlayout();
         let mut hlayout_ptr = hlayout.as_mut_ptr();
-        let query_btn = query_button::create("", hlayout.as_mut_ptr());
+        let query_btn = query_button::create(None, hlayout.as_mut_ptr());
 
         let (level, role, platform, site, dir) = combo_boxes::create(&mut hlayout_ptr);
 
@@ -62,110 +62,185 @@ pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
 }
 
 impl MainToolbar {
-    /// Get a mutable reference to the mutable pointer to the level
+    /// Get a mutable pointer to the level
     /// combobox.
-    pub fn level(&mut self) -> MutPtr<QComboBox> {
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to level QcomboBox
+    pub fn level(&self) -> MutPtr<QComboBox> {
         self.level
     }
 
     /// set the levels to choose from in the combobox's dropdown list
-    pub fn set_level_items<I: AsRef<str>>(&mut self, inputs: Vec<I>) {
+    ///
+    /// # Arguments
+    /// * `inputs` - Vec of types implementing AsRef<str> (so &str, String, etc)
+    ///
+    /// # Returns
+    /// * None
+    pub fn set_level_items<I: AsRef<str>>(&self, inputs: Vec<I>) {
         unsafe {
             inputs
                 .iter()
                 .filter(|s| s.as_ref() != "facility")
                 .for_each(|s| {
-                    self.level
-                        .add_item_q_string(&QString::from_std_str(s.as_ref()))
+                    let mut level = self.level;
+                    level.add_item_q_string(&QString::from_std_str(s.as_ref()))
                 });
         }
     }
 
     /// add a level to choose from in the combobox's dropdown list
-    pub fn add_level_item<I: AsRef<str>>(&mut self, input: I) {
+    ///
+    /// # Arguments
+    /// * `input` - type implementing AsRef<str> (EG &str or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn add_level_item<I: AsRef<str>>(&self, input: I) {
         unsafe {
-            self.level
-                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+            let mut level = self.level;
+            level.add_item_q_string(&QString::from_std_str(input.as_ref()))
         }
     }
 
-    /// Get a mutable reference to the mutable pointer to the role
-    /// combobox.
-    pub fn role(&mut self) -> MutPtr<QComboBox> {
+    /// Get a mutable pointer to the role QComboBox.
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to role QCombobBox
+    pub fn role(&self) -> MutPtr<QComboBox> {
         self.role
     }
 
     /// Set role items in the combobox dropdown list
-    pub fn set_role_items<I: AsRef<str>>(&mut self, inputs: Vec<I>) {
+    ///
+    /// # Arguments
+    /// * `inputs` - A Vec of type that implements AsRef<str> (EG &str, or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn set_role_items<I: AsRef<str>>(&self, inputs: Vec<I>) {
         unsafe {
             inputs.iter().filter(|s| s.as_ref() != "any").for_each(|s| {
-                self.role
-                    .add_item_q_string(&QString::from_std_str(s.as_ref()))
+                let mut role = self.role;
+                role.add_item_q_string(&QString::from_std_str(s.as_ref()))
             });
         }
     }
 
     /// add a role to choose from in the combobox's dropdown list
-    pub fn add_role_item<I: AsRef<str>>(&mut self, input: I) {
+    ///
+    /// # Arguments
+    /// * `input` - A type that implements AsRef<str> (EG &str, or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn add_role_item<I: AsRef<str>>(&self, input: I) {
         unsafe {
-            self.role
-                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+            let mut role = self.role;
+            role.add_item_q_string(&QString::from_std_str(input.as_ref()))
         }
     }
 
-    /// Get a mutable reference to the mutable pointer to the platform
+    /// Get a reference to the mutable pointer to the platform
     /// combobox.
-    pub fn platform(&mut self) -> MutPtr<QComboBox> {
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * A MutPtr to the platform QComboBox
+    pub fn platform(&self) -> MutPtr<QComboBox> {
         self.platform
     }
 
     /// Set the platforms to choose from in the combobox's dropdown list
-    pub fn set_platform_items<I: AsRef<str>>(&mut self, inputs: Vec<I>) {
+    ///
+    /// # Arguments
+    /// * `inputs` - A Vec of type that implements AsRef<str> (EG &str, or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn set_platform_items<I: AsRef<str>>(&self, inputs: Vec<I>) {
         unsafe {
             inputs.iter().filter(|s| s.as_ref() != "any").for_each(|s| {
-                self.platform
-                    .add_item_q_string(&QString::from_std_str(s.as_ref()))
+                let mut platform = self.platform;
+                platform.add_item_q_string(&QString::from_std_str(s.as_ref()))
             });
         }
     }
 
-    /// Get a mutable reference to the mutable pointer to the site
-    /// combobox.
-    pub fn site(&mut self) -> MutPtr<QComboBox> {
+    /// Get a mutable pointer to the site combobox.
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to site QComboBox
+    pub fn site(&self) -> MutPtr<QComboBox> {
         self.site
     }
 
-    /// Set the sites to choose from in the combobox's dropdown list.
-    pub fn set_site_items<I: AsRef<str>>(&mut self, inputs: Vec<I>) {
+    /// Set the sites to choose from in the combobox's dropdown list
+    ///
+    /// # Arguments
+    /// * `inputs` - A Vec of type that implements AsRef<str> (EG &str or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn set_site_items<I: AsRef<str>>(&self, inputs: Vec<I>) {
         unsafe {
             inputs.iter().filter(|s| s.as_ref() != "any").for_each(|s| {
-                self.site
-                    .add_item_q_string(&QString::from_std_str(s.as_ref()))
+                let mut site = self.site;
+                site.add_item_q_string(&QString::from_std_str(s.as_ref()))
             });
         }
     }
 
-    /// add a site to choose from in the combobox's dropdown list
-    pub fn add_site_item<I: AsRef<str>>(&mut self, input: I) {
+    /// Add a site to choose from in the combobox's dropdown list.
+    ///
+    /// # Arguments
+    /// * `input` - A type which implements AsRef<str> (EG &str or String)
+    ///
+    /// # Returns
+    /// * None
+    pub fn add_site_item<I: AsRef<str>>(&self, input: I) {
         unsafe {
-            self.site
-                .add_item_q_string(&QString::from_std_str(input.as_ref()))
+            let mut site = self.site;
+            site.add_item_q_string(&QString::from_std_str(input.as_ref()))
         }
     }
 
-    /// Get a mutable reference to the mutable pointer to the dir
-    /// combobox.
-    pub fn dir(&mut self) -> MutPtr<QComboBox> {
+    /// Get a mutable pointer to the dir combobox.
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to the dir QComboBox
+    pub fn dir(&self) -> MutPtr<QComboBox> {
         self.dir
     }
 
-    /// Retrieve a query button
-    pub fn query_btn(&mut self) -> MutPtr<QPushButton> {
+    /// Retrieve a MutPtr to the query button QPushButton
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to query button QPushButton
+    pub fn query_btn(&self) -> MutPtr<QPushButton> {
         self.query_btn
     }
 
     /// Set the stylesheet to the internal stylesheet
-    pub fn set_default_stylesheet(&mut self) {
+    pub fn set_default_stylesheet(&self) {
         set_stylesheet_from_str(STYLE_STR, self.toolbar);
     }
 }

@@ -1,5 +1,4 @@
-use packybara::db::traits::PBFind;
-use qt_core::{AlignmentFlag, QFlags, QString};
+use qt_core::QString;
 use qt_widgets::{
     cpp_core::{MutPtr, StaticUpcast},
     QComboBox, QFrame, QLabel, QLayout, QPushButton,

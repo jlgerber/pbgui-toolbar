@@ -15,12 +15,15 @@ use rustqt_utils::{create_hlayout, qs};
 ///
 /// # Returns
 /// * A mutalble pointer wrapping a QPushButton
-pub fn create<T>(label: &str, layout: MutPtr<T>) -> MutPtr<QPushButton>
+pub fn create<T>(label: Option<&str>, layout: MutPtr<T>) -> MutPtr<QPushButton>
 where
     T: StaticUpcast<QLayout>,
 {
     unsafe {
-        let mut button = QPushButton::from_q_string(&QString::from_std_str(label));
+        let mut button = match label {
+            Some(label) => QPushButton::from_q_string(&QString::from_std_str(label)),
+            None => QPushButton::new(),
+        };
 
         button.set_object_name(&QString::from_std_str("QueryButton"));
         let button_ptr = button.as_mut_ptr();

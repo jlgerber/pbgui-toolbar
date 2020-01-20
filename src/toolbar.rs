@@ -1,7 +1,7 @@
 use crate::{combo_boxes, line_edit, query_button};
 use qt_core::{AlignmentFlag, QFlags, QString};
 use qt_widgets::{
-    cpp_core::{CppBox, MutPtr},
+    cpp_core::{CppBox, MutPtr, Ptr},
     QAction, QComboBox, QFrame, QLineEdit, QMainWindow, QMenu, QPushButton, QToolBar,
 };
 
@@ -9,16 +9,16 @@ use rustqt_utils::{create_hlayout, qs, set_stylesheet_from_str};
 
 /// The main toolbar structure
 pub struct MainToolbar {
-    pub toolbar: MutPtr<QToolBar>,
-    pub query_btn: MutPtr<QPushButton>,
-    pub level: MutPtr<QComboBox>,
-    pub role: MutPtr<QComboBox>,
-    pub platform: MutPtr<QComboBox>,
-    pub site: MutPtr<QComboBox>,
-    pub dir: MutPtr<QComboBox>,
-    pub line_edit: MutPtr<QLineEdit>,
-    pub menu: CppBox<QMenu>,
-    pub clear_line_edit_action: MutPtr<QAction>,
+    toolbar: MutPtr<QToolBar>,
+    query_btn: MutPtr<QPushButton>,
+    level: MutPtr<QComboBox>,
+    role: MutPtr<QComboBox>,
+    platform: MutPtr<QComboBox>,
+    site: MutPtr<QComboBox>,
+    dir: MutPtr<QComboBox>,
+    line_edit: MutPtr<QLineEdit>,
+    menu: CppBox<QMenu>,
+    clear_line_edit_action: MutPtr<QAction>,
 }
 
 /// load style at compile time
@@ -63,6 +63,21 @@ pub fn create(main_window: MutPtr<QMainWindow>) -> MainToolbar {
 }
 
 impl MainToolbar {
+    /// Retrieve a MutPtr to the toolbar
+    pub fn toolbar(&self) -> MutPtr<QToolBar> {
+        self.toolbar
+    }
+    /// Retrieve a MutPtr to the query button QPushButton
+    ///
+    /// # Arguments
+    /// * None
+    ///
+    /// # Returns
+    /// * MutPtr to query button QPushButton
+    pub fn query_btn(&self) -> MutPtr<QPushButton> {
+        self.query_btn
+    }
+
     /// Get a mutable pointer to the level
     /// combobox.
     ///
@@ -229,15 +244,24 @@ impl MainToolbar {
         self.dir
     }
 
-    /// Retrieve a MutPtr to the query button QPushButton
-    ///
-    /// # Arguments
-    /// * None
-    ///
-    /// # Returns
-    /// * MutPtr to query button QPushButton
-    pub fn query_btn(&self) -> MutPtr<QPushButton> {
-        self.query_btn
+    /// Retrieve a MutPtr to the QLineEdit
+    pub fn line_edit(&self) -> MutPtr<QLineEdit> {
+        self.line_edit
+    }
+
+    /// Retrieve a Ptr to the QMenu. Unlike most items, the
+    /// menu is owned by this component; thus, one must use
+    /// a `menu_mut` to retrieve a MutPtr
+    pub unsafe fn menu(&self) -> Ptr<QMenu> {
+        self.menu.as_ptr()
+    }
+    /// Retrieve a MutPtr to the QMenu
+    pub unsafe fn menu_mut(&mut self) -> MutPtr<QMenu> {
+        self.menu.as_mut_ptr()
+    }
+    /// Retrieve a MutPTr to the clear_line_edit_action
+    pub unsafe fn clear_line_edit_action(&self) -> MutPtr<QAction> {
+        self.clear_line_edit_action
     }
 
     /// Set the stylesheet to the internal stylesheet

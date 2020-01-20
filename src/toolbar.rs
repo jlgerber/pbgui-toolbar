@@ -25,8 +25,9 @@ pub struct MainToolbar {
 const STYLE_STR: &'static str = include_str!("../resources/toolbar.qss");
 
 /// Create the MainToolbar structure
-pub fn create(main_window: &mut MutPtr<QMainWindow>) -> MainToolbar {
+pub fn create(main_window: MutPtr<QMainWindow>) -> MainToolbar {
     unsafe {
+        let mut main_window = main_window;
         let mut top_toolbar = main_window.add_tool_bar_q_string(&qs("TopToolBar"));
         top_toolbar.set_floatable(false);
         top_toolbar.set_movable(false);

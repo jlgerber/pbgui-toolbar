@@ -32,7 +32,7 @@ fn main() {
 
         // set main_widget as the central widget in main_window
         main_window.set_central_widget(main_widget.into_ptr());
-        let tb = toolbar::create(&mut main_window.as_mut_ptr());
+        let tb = toolbar::create(main_window.as_mut_ptr());
         tb.set_default_stylesheet();
         let client = ClientProxy::connect().expect("Unable to connect via ClientProxy");
         let mut db = PackratDb::new(client);

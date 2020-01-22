@@ -90,6 +90,21 @@ impl MainToolbar {
         self.level
     }
 
+    /// Get the current level as a std string
+    pub unsafe fn level_string(&self) -> String {
+        self.level.current_text().to_std_string()
+    }
+
+    /// Retrieve the current show as a string
+    pub unsafe fn show_string(&self) -> String {
+        self.level_string().split(".").next().unwrap().to_string()
+    }
+
+    /// Get the current level as a qstring
+    pub unsafe fn level_qstring(&self) -> CppBox<QString> {
+        self.level.current_text()
+    }
+
     /// set the levels to choose from in the combobox's dropdown list
     ///
     /// # Arguments
